@@ -1,4 +1,4 @@
-import db from "../database/index.js"
+import db from "../database/index.js" //fix casing
 
 let { users } = db;
 
