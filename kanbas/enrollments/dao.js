@@ -1,7 +1,22 @@
 import Database from "../database/index.js" //fix casing
 
-export function enrollUserInCourse(userId, courseId) {
+export const enrollUserInCourse = (userId, courseId) => {
     const { enrollments } = Database;
-    enrollments.push({ _id: Date.now(), user: userId, course: courseId });
+    const existingEnrollment = enrollments.some((enrollment) => enrollment.user === userId && enrollment.course === courseId)
+    if (existingEnrollment) return false
+    const newEnrollment = { _id: Date.now().toString(), user: userId, course: courseId };
+    Database.enrollments.push(newEnrollment);
+    return newEnrollment
 }
 
+export const unenrollUser = (userId, courseId) => {
+    const { enrollments } = Database
+    const initialLength = enrollments.length;
+    Database.enrollments = enrollments.filter((enrollment) => !(enrollment.user === userId && enrollment.course === courseId));
+    return Database.enrollments.length < initialLength;
+}
+
+export const getEnrollmentsForUser = (userId) => {
+    const { enrollments } = Database
+    return enrollments.filter((enrollment) => enrollment.user === userId)
+}

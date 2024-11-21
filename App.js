@@ -8,6 +8,7 @@ import { AssignmentRoutes } from "./kanbas/assignments/routes.js"
 import UserRoutes from "./kanbas/users/routes.js"
 import CourseRoutes from "./kanbas/courses/routes.js"
 import "dotenv/config"
+import { EnrollmentRoutes } from "./kanbas/enrollments/routes.js"
 
 const app = express()
 app.use(cors(
@@ -40,6 +41,7 @@ UserRoutes(app)
 CourseRoutes(app)
 AssignmentRoutes(app)
 ModuleRoutes(app)
+EnrollmentRoutes(app)
 Lab5(app)
 Hello(app)
 app.listen(process.env.PORT || 4000)
