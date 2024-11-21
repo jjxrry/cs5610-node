@@ -4,18 +4,15 @@ export const EnrollmentRoutes = (app) => {
     app.post("/api/enrollments/enroll", (req, res) => {
         const { userId, courseId } = req.body
         const enrollment = enrollmentsDao.enrollUserInCourse(userId, courseId)
-        if (!enrollment) return res.send(404).json({ message: "failed to enroll" })
+        // console.log("ENROLL ROUTES")
         res.json(enrollment)
     });
 
     app.delete("/api/enrollments/unenroll", (req, res) => {
         const { userId, courseId } = req.body
-        const isUnenrolled = enrollmentsDao.unenrollUser(userId, courseId)
-        if (isUnenrolled) {
-            return res.sendStatus(204)
-        } else {
-            return res.send(404).json({ message: "failed to unenroll" })
-        }
+        // console.log("UNENROLL ROUTES")
+        enrollmentsDao.unenrollUser(userId, courseId)
+        res.json(enrollmentsDao.getEnrollmentsForUser(userId))
     })
 
     app.get("/api/enrollments/:userId", (req, res) => {

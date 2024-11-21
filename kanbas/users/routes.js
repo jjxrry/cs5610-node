@@ -53,7 +53,7 @@ export default function UserRoutes(app) {
         const currentUser = req.session["currentUser"]
         if (!currentUser) {
             res.sendStatus(401)
-            console.error("No user is signed in")
+            // console.error("No user is signed in")
             return
         }
         res.json(currentUser)
