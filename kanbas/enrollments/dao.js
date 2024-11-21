@@ -1,4 +1,4 @@
-import Database from "../Database/index.js";
+import Database from "../database/index.js" //fix casing
 
 export function enrollUserInCourse(userId, courseId) {
     const { enrollments } = Database;
