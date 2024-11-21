@@ -14,7 +14,7 @@ const app = express()
 app.use(cors(
     {
         credentials: true,
-        origin: process.env.NETLIFY_URL || "http://localhost:5713",
+        origin: process.env.NETLIFY_URL || "https://kanbas-react-app-cs5610-jerrygao.netlify.app/",
     }
 ))
 
