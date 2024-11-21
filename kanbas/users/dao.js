@@ -1,4 +1,4 @@
-import db from "../Database/index.js";
+import db from "../database/index.js";
 
 let { users } = db;
 
