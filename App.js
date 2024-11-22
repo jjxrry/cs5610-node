@@ -1,4 +1,5 @@
 import express from "express"
+import mongoose, { mongo } from "mongoose"
 import session from "express-session"
 import cors from "cors"
 import { Hello } from "./Hello.js"
@@ -10,6 +11,8 @@ import CourseRoutes from "./kanbas/courses/routes.js"
 import "dotenv/config"
 import { EnrollmentRoutes } from "./kanbas/enrollments/routes.js"
 
+const CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING || "mongodb://localhost:27017/kanbas"
+mongoose.connect(CONNECTION_STRING)
 const app = express()
 app.use(cors(
     {
