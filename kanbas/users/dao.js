@@ -1,12 +1,8 @@
-import db from "../database/index.js" //fix casing
 import model from "./model.js"
 
-let { users } = db;
-
 export const createUser = (user) => {
-    const newUser = { ...user, _id: Date.now() };
-    users = [...users, newUser];
-    return newUser;
+    delete user.id
+    return model.create(user)
 };
 
 export const findAllUsers = () => model.find();
