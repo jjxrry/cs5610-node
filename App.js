@@ -34,7 +34,7 @@ if (process.env.NODE_ENV !== "development") {
     sessionOptions.cookie = {
         sameSite: "none",
         secure: true,
-        domain: process.env.REMOTE_SERVER,
+        domain: process.env.BACKEND_SERVER,
     }
 }
 
