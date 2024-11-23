@@ -24,7 +24,7 @@ app.use(cors(
 ))
 
 const sessionOptions = {
-    secret: "waffles",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
 }

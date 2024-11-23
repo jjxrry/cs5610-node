@@ -1,4 +1,5 @@
 import Database from "../database/index.js" //fix casing
+import model from "./model.js"
 
 export const findAllCourses = () => {
     return Database.courses;
