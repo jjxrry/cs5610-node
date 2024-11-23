@@ -18,6 +18,8 @@ app.use(cors(
     {
         credentials: true,
         origin: process.env.NETLIFY_URL,
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
     }
 ))
 
@@ -32,9 +34,7 @@ if (process.env.NODE_ENV !== "development") {
     sessionOptions.cookie = {
         sameSite: "none",
         secure: true,
-        // domain: process.env.REMOTE_SERVER,
-        maxAge: 24 * 60 * 60 * 1000,
-        path: '/'
+        domain: process.env.REMOTE_SERVER,
     }
 }
 
