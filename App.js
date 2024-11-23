@@ -36,10 +36,17 @@ if (process.env.NODE_ENV !== "development") {
     }
 }
 
+console.log("CORS Origin:", process.env.NETLIFY_URL);
+console.log("Node ENV:", process.env.NODE_ENV);
+console.log("Session Options:", {
+    ...sessionOptions,
+    secret: sessionOptions.secret ? "[SECRET]" : undefined
+})
+
+app.use(express.json())
 app.use(
     session(sessionOptions)
 )
-app.use(express.json())
 UserRoutes(app)
 CourseRoutes(app)
 AssignmentRoutes(app)
