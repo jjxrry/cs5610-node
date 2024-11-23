@@ -18,13 +18,13 @@ app.use(cors(
     {
         credentials: true,
         origin: process.env.NETLIFY_URL,
-        methods: "GET,POST,PUT,DELETE",
-        allowedHeaders: "Content-Type",
+        // methods: "GET,POST,PUT,DELETE",
+        // allowedHeaders: "Content-Type",
     }
 ))
 
 const sessionOptions = {
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET || "waffles",
     resave: false,
     saveUninitialized: false,
 }
