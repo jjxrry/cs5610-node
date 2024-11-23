@@ -32,8 +32,9 @@ if (process.env.NODE_ENV !== "development") {
     sessionOptions.cookie = {
         sameSite: "none",
         secure: true,
-        domain: ".onrender.com",
         // domain: process.env.REMOTE_SERVER,
+        maxAge: 24 * 60 * 60 * 1000,
+        path: '/'
     }
 }
 
