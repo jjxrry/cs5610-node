@@ -34,7 +34,7 @@ if (process.env.NODE_ENV !== "development") {
     sessionOptions.cookie = {
         sameSite: "none",
         secure: true,
-        domain: process.env.BACKEND_SERVER,
+        domain: "cs5610-node-1.onrender.com",
     }
 }
 
