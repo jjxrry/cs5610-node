@@ -6,11 +6,12 @@ export const findAllCourses = () => {
 }
 
 export const findCoursesForEnrolledUser = (userId) => {
-    const { courses, enrollments } = Database
-    const enrolledCourses = courses.filter((course) =>
-        enrollments.some((enrollment) => enrollment.user === userId && enrollment.course === course._id)
-    )
-    return enrolledCourses
+    // return model.find({})
+    // const { courses, enrollments } = Database
+    // const enrolledCourses = courses.filter((course) =>
+    //     enrollments.some((enrollment) => enrollment.user === userId && enrollment.course === course._id)
+    // )
+    // return enrolledCourses
 }
 
 export const createCourse = (course) => {

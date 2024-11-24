@@ -20,7 +20,12 @@ export default function UserRoutes(app) {
             uid = currentUser._id;
         }
         const status = await enrollmentsDao.unenrollUserFromCourse(uid, cid);
-        res.sendStatus(status);
+        // add this becuase mongo return is int, not http status
+        if (status.deletedCount > 0) {
+            res.sendStatus(200)
+        } else {
+            res.sendStatus(404)
+        }
     };
 
     const findCoursesForUser = async (req, res) => {
@@ -156,7 +161,7 @@ export default function UserRoutes(app) {
     app.post("/api/users/signin", signin);
     app.post("/api/users/signout", signout);
     app.post("/api/users/profile", profile);
-    app.get("/api/users/:userId/courses", findCoursesForEnrolledUser)
+    // app.get("/api/users/:userId/courses", findCoursesForEnrolledUser)
     app.post("/api/users/current/courses", createCourse)
     app.get("/api/users/:uid/courses", findCoursesForUser);
     app.post("/api/users/:uid/courses/:cid", enrollUserInCourse);

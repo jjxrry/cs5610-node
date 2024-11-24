@@ -9,7 +9,6 @@ export default function CourseRoutes(app) {
         if (currentUser) {
             await enrollmentsDao.enrollUserInCourse(currentUser._id, course._id);
         }
-
         res.json(course)
     })
 
