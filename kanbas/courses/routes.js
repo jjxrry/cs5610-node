@@ -3,7 +3,6 @@ import * as modulesDao from "../modules/dao.js"
 import * as enrollmentsDao from "../enrollments/dao.js"
 
 export default function CourseRoutes(app) {
-
     app.get("/api/courses/:cid/users", async (req, res) => {
         const { cid } = req.params
         const users = await enrollmentsDao.findUsersForCourse(cid)
