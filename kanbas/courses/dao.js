@@ -5,14 +5,14 @@ export const findAllCourses = () => {
     return model.find()
 }
 
-export const findCoursesForEnrolledUser = (userId) => {
-    // return model.find({})
-    // const { courses, enrollments } = Database
-    // const enrolledCourses = courses.filter((course) =>
-    //     enrollments.some((enrollment) => enrollment.user === userId && enrollment.course === course._id)
-    // )
-    // return enrolledCourses
-}
+// export const findCoursesForEnrolledUser = (userId) => {
+//     // return model.find({})
+//     // const { courses, enrollments } = Database
+//     // const enrolledCourses = courses.filter((course) =>
+//     //     enrollments.some((enrollment) => enrollment.user === userId && enrollment.course === course._id)
+//     // )
+//     // return enrolledCourses
+// }
 
 export const createCourse = (course) => {
     // this could be an issue because im deleting the json id field anyway
