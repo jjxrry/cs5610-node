@@ -2,9 +2,29 @@ import mongoose from "mongoose";
 
 const questionSchema = new mongoose.Schema({
     questionText: { type: String, required: true, trim: true },
-    options: { type: [String], required: true }, // Array of answer choices
-    correctAnswer: { type: String, required: true }, // The correct answer
+    questionType: {
+        type: String,
+        enum: ["multiple-choice", "true-false", "short-answer"],
+        required: true
+    },
+    options: {
+        type: [String],
+        required: function() { return this.questionType === "multiple-choice"; },
+        validate: [arrayLimit, 'Options should be at least 2 for multiple-choice']
+    },
+    correctAnswer: {
+        type: String,
+        required: true
+    },
+    points: {
+        type: Number,
+        required: true
+    },
 }, { _id: false });
+
+function arrayLimit(val) {
+    return val.length >= 2;
+}
 
 const quizSchema = new mongoose.Schema(
     {
@@ -12,9 +32,33 @@ const quizSchema = new mongoose.Schema(
         course: { type: mongoose.Schema.Types.ObjectId, ref: "CourseModel", required: true },
         createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "UserModel", required: true },
         description: { type: String, required: true, trim: true },
-        totalPoints: { type: Number, required: true },
+        totalPoints: {
+            type: Number,
+            required: true,
+            default: 0,
+            set: function() {
+                return this.questions.reduce((sum, question) => sum + question.points, 0);
+            }
+        },
         questions: { type: [questionSchema], required: true },
-        timeLimit: { type: Number, default: null },
+        quizType: {
+            type: String,
+            enum: ["Graded Quiz", "Practice Quiz", "Graded Survey", "Ungraded Survey"],
+            default: "Graded Quiz"
+        },
+        assignmentGroup: {
+            type: String,
+            enum: ["Quizzes", "Exams", "Assignments", "Project"],
+            default: "Quizzes"
+        },
+        shuffleAnswers: { type: Boolean, default: true },
+        timeLimit: { type: Number, default: 20 },
+        multipleAttempts: { type: Boolean, default: false },
+        showCorrectAnswers: { type: Boolean, default: false },
+        accessCode: { type: String, default: "" },
+        oneQuestionAtATime: { type: Boolean, default: true },
+        webcamRequired: { type: Boolean, default: false },
+        lockQuestionsAfterAnswering: { type: Boolean, default: false },
         dueDate: { type: Date, required: true },
         availableFrom: { type: Date, required: true },
         availableUntil: { type: Date, required: true },
@@ -23,4 +67,5 @@ const quizSchema = new mongoose.Schema(
     { collection: "quizzes", timestamps: true }
 );
 
-export default quizSchema
+export default quizSchema;
+

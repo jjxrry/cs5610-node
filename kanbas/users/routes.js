@@ -121,6 +121,7 @@ export default function UserRoutes(app) {
 
     const profile = async (req, res) => {
         const currentUser = req.session["currentUser"]
+        console.log(currentUser)
         if (!currentUser) {
             res.sendStatus(401)
             // console.error("No user is signed in")
@@ -160,7 +161,7 @@ export default function UserRoutes(app) {
     app.post("/api/users/signup", signup);
     app.post("/api/users/signin", signin);
     app.post("/api/users/signout", signout);
-    app.post("/api/users/profile", profile);
+    app.get("/api/users/profile/info", profile);
     // app.get("/api/users/:userId/courses", findCoursesForEnrolledUser)
     app.post("/api/users/current/courses", createCourse)
     app.get("/api/users/:uid/courses", findCoursesForUser);
