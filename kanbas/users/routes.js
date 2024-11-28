@@ -107,7 +107,7 @@ export default function UserRoutes(app) {
         const currentUser = await dao.findUserByCredentials(username, password)
         if (currentUser) {
             req.session["currentUser"] = currentUser
-            console.log("session created: ", req.session)
+            // console.log("session created: ", req.session)
             res.json(currentUser)
         } else {
             res.status(401).json({ message: "Unable to login, try again later, whoop" })
@@ -121,7 +121,7 @@ export default function UserRoutes(app) {
 
     const profile = async (req, res) => {
         const currentUser = req.session["currentUser"]
-        console.log(currentUser)
+        // console.log(currentUser)
         if (!currentUser) {
             res.sendStatus(401)
             // console.error("No user is signed in")

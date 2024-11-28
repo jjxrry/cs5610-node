@@ -8,13 +8,21 @@ const questionSchema = new mongoose.Schema({
         required: true
     },
     options: {
-        type: [String],
+        type: [{
+            text: { type: String, required: true }
+        }],
         required: function() { return this.questionType === "multiple-choice"; },
         validate: [arrayLimit, 'Options should be at least 2 for multiple-choice']
     },
     correctAnswer: {
         type: String,
-        required: true
+        required: true,
+        validate: {
+            validator: function(value) {
+                return this.options && this.options.some(option => option.text === value);
+            },
+            message: 'Correct answer must be one of the options'
+        }
     },
     points: {
         type: Number,
@@ -51,6 +59,7 @@ const quizSchema = new mongoose.Schema(
         shuffleAnswers: { type: Boolean, default: true },
         timeLimit: { type: Number, default: 20 },
         multipleAttempts: { type: Boolean, default: false },
+        numAttempts: { type: Number, default: 1 },
         showCorrectAnswers: { type: Boolean, default: false },
         accessCode: { type: String, default: "" },
         oneQuestionAtATime: { type: Boolean, default: true },
