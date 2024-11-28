@@ -44,7 +44,7 @@ export const QuizRoutes = (app) => {
     });
 
     //get published quizzes
-    app.get("/api/courses/:cid/quizzes/published", async (req, res) => {
+    app.get("/api/courses/:cid/quizzes/", async (req, res) => {
         const { cid } = req.params
         const publishedQuizzes = await dao.getPublishedQuizzesByCourse(cid)
         if (!publishedQuizzes) {
