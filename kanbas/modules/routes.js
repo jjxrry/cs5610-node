@@ -1,17 +1,18 @@
 import * as modulesDao from "./dao.js"
+import * as dao from "./dao.js"
 
 export const ModuleRoutes = (app) => {
-    app.put("/api/modules/:moduleId", (req, res) => {
+    app.put("/api/modules/:moduleId", async (req, res) => {
         const { moduleId } = req.params
         const moduleUpdates = req.body
-        const moduleIndex = modulesDao.updateModule(moduleId, moduleUpdates)
+        const moduleIndex = await modulesDao.updateModule(moduleId, moduleUpdates)
         if (!moduleIndex) return res.sendStatus(400)
         res.sendStatus(204)
     })
 
-    app.delete("/api/modules/:moduleId", (req, res) => {
+    app.delete("/api/modules/:moduleId", async (req, res) => {
         const { moduleId } = req.params
-        const isDeleted = modulesDao.deleteModule(moduleId)
+        const isDeleted = await modulesDao.deleteModule(moduleId)
         if (isDeleted) {
             return res.sendStatus(204)
         } else {
@@ -19,9 +20,9 @@ export const ModuleRoutes = (app) => {
         }
     })
 
-    app.get("/api/courses/:cid/modules", (req, res) => {
+    app.get("/api/courses/:cid/modules", async (req, res) => {
         const { cid } = req.params;
-        const modules = db.modules.filter((m) => m.course === cid);
+        const modules = await modulesDao.findModulesForCourse(cid)
         res.json(modules);
     });
 }

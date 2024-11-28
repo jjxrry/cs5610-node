@@ -12,12 +12,12 @@ export const EnrollmentRoutes = (app) => {
         const { userId, courseId } = req.body
         // console.log("UNENROLL ROUTES")
         enrollmentsDao.unenrollUser(userId, courseId)
-        res.json(enrollmentsDao.getEnrollmentsForUser(userId))
+        res.json(enrollmentsDao.findCoursesForUser(userId))
     })
 
     app.get("/api/enrollments/:userId", (req, res) => {
         const { userId } = req.params
-        const enrollments = enrollmentsDao.getEnrollmentsForUser(userId)
+        const enrollments = enrollmentsDao.findCoursesForUser(userId)
         res.json(enrollments)
     })
 }

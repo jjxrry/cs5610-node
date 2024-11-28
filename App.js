@@ -1,4 +1,5 @@
 import express from "express"
+import mongoose, { mongo } from "mongoose"
 import session from "express-session"
 import cors from "cors"
 import { Hello } from "./Hello.js"
@@ -10,18 +11,20 @@ import CourseRoutes from "./kanbas/courses/routes.js"
 import "dotenv/config"
 import { EnrollmentRoutes } from "./kanbas/enrollments/routes.js"
 
+const CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING
+mongoose.connect(CONNECTION_STRING)
 const app = express()
 app.use(cors(
     {
         credentials: true,
         origin: process.env.NETLIFY_URL,
-        methods: "GET,POST,PUT,DELETE",
-        allowedHeaders: "Content-Type",
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
     }
 ))
 
 const sessionOptions = {
-    secret: "waffles",
+    secret: process.env.SESSION_SECRET || "waffles",
     resave: false,
     saveUninitialized: false,
 }
@@ -31,14 +34,21 @@ if (process.env.NODE_ENV !== "development") {
     sessionOptions.cookie = {
         sameSite: "none",
         secure: true,
-        domain: process.env.NODE_SERVER_DOMAIN,
+        domain: process.env.BACKEND_SERVER,
     }
 }
 
+console.log("CORS Origin:", process.env.NETLIFY_URL);
+console.log("Node ENV:", process.env.NODE_ENV);
+console.log("Session Options:", {
+    ...sessionOptions,
+    secret: sessionOptions.secret ? "[SECRET]" : undefined
+})
+
+app.use(express.json())
 app.use(
     session(sessionOptions)
 )
-app.use(express.json())
 UserRoutes(app)
 CourseRoutes(app)
 AssignmentRoutes(app)
