@@ -1,7 +1,10 @@
 import model from "./model.js"
+import mongoose from "mongoose";
 
-export const createQuiz = (quiz) => {
+export const createQuiz = (quiz, courseId, createdId) => {
     delete quiz._id
+    quiz.createdBy = new mongoose.Types.ObjectId(quiz.createdBy);
+    quiz.course = new mongoose.Types.ObjectId(quiz.course);
     return model.create(quiz)
 }
 
@@ -29,3 +32,6 @@ export const publishQuiz = (quizId) => {
     return model.findByIdAndUpdate({ _id: quizId }, { published: true })
 }
 
+export const unpublishQuiz = (quizId) => {
+    return model.findByIdAndUpdate({ _id: quizId }, { published: false })
+}

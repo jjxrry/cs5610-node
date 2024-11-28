@@ -36,9 +36,6 @@ const quizSchema = new mongoose.Schema(
             type: Number,
             required: true,
             default: 0,
-            set: function() {
-                return this.questions.reduce((sum, question) => sum + question.points, 0);
-            }
         },
         questions: { type: [questionSchema], required: true },
         quizType: {

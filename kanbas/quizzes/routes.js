@@ -1,6 +1,13 @@
 import * as dao from "./dao.js"
 
 export const QuizRoutes = (app) => {
+    app.post("/api/courses/:cid/quizzes/", async (req, res) => {
+        const quiz = req.body
+        const created = await dao.createQuiz(quiz)
+        if (!created) return res.sendStatus(400)
+        return res.status(204)
+    })
+
     //update
     app.put("/api/courses/:cid/quizzes/:qid", async (req, res) => {
         const { cid, qid } = req.params
@@ -58,6 +65,17 @@ export const QuizRoutes = (app) => {
             return res.json(publishedQuiz)
         }
     })
+
+    app.put("/api/courses/:cid/quizzes/:qid/unpublish", async (req, res) => {
+        const { qid } = req.params
+        const publishedQuiz = await dao.unpublishQuiz(qid)
+        if (!publishedQuiz) {
+            return res.sendStatus(404)
+        } else {
+            return res.json(publishedQuiz)
+        }
+    })
+
 
 }
 
