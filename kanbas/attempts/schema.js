@@ -20,10 +20,8 @@ const attemptSchema = new mongoose.Schema(
         answers: [answerSchema],
         totalPoints: { type: Number, required: true },
         scores: { type: [scoreSchema], required: true },
-        completed: { type: Boolean, default: false },
         startTime: { type: Date, required: true },
         endTime: { type: Date },
-        timeSpent: { type: Number }
     },
     { collection: "attempts", timestamps: true }
 );

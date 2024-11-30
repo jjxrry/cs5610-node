@@ -10,11 +10,16 @@ export const createAttempt = (attempt) => {
     return model.create(attempt)
 }
 
-export const getLastAttempt = (attemptId) => {
+export const getAttemptById = (attemptId) => {
     return model.findById(attemptId)
 }
 
+export const updateAttempt = (attemptId, updatedAttempt) => {
+    return model.updateOne({ _id: attemptId }, updatedAttempt)
+}
 
+// export const getAttemptsByCourse?
+// export const 
 
 // export const createQuiz = (quiz, courseId, createdId) => {
 //     delete quiz._id
