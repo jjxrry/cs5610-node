@@ -1,7 +1,7 @@
 import model from "./model.js"
 import mongoose from "mongoose";
 
-export const createQuiz = (quiz, courseId, createdId) => {
+export const createQuiz = (quiz) => {
     delete quiz._id
     quiz.createdBy = new mongoose.Types.ObjectId(quiz.createdBy);
     quiz.course = new mongoose.Types.ObjectId(quiz.course);

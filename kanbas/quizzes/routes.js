@@ -10,6 +10,7 @@ export const QuizRoutes = (app) => {
 
     //update
     app.put("/api/courses/:cid/quizzes/:qid", async (req, res) => {
+        // console.log("REQ BODY: ", req.body)
         const { cid, qid } = req.params
         const quizUpdates = req.body
         const quizIndex = await dao.updateQuiz(qid, quizUpdates)
