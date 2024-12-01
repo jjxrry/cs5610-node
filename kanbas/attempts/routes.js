@@ -9,6 +9,7 @@ export const AttemptRoutes = (app) => {
     })
 
     app.post("/api/courses/:cid/quizzes/:qid/attempts", async (req, res) => {
+        console.log("Request received with params:", req.params, "and body:", req.body);
         const attempt = req.body
         const posted = await dao.createAttempt(attempt)
         if (!posted) return res.sendStatus(400)
