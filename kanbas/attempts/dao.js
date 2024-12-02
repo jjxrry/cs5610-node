@@ -10,8 +10,9 @@ export const createAttempt = (attempt) => {
     return model.create(attempt)
 }
 
-export const getAttemptById = (attemptId) => {
-    return model.findById(attemptId)
+//fix this
+export const getAttemptByUserId = (uid) => {
+    return model.findOne({ user: uid })
 }
 
 export const updateAttempt = (attemptId, updatedAttempt) => {
