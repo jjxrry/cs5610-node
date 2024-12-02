@@ -11,8 +11,8 @@ export const createAttempt = (attempt) => {
 }
 
 //fix this
-export const getAttemptByUserId = (uid) => {
-    return model.findOne({ user: uid })
+export const getAttemptByUserId = (cid, qid, uid) => {
+    return model.findOne({ courseId: cid, quizId: qid, user: uid })
 }
 
 export const updateAttempt = (attemptId, updatedAttempt) => {

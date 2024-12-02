@@ -2,8 +2,8 @@ import * as dao from "./dao.js"
 
 export const AttemptRoutes = (app) => {
     app.get("/api/courses/:cid/quizzes/:qid/attempts/:uid", async (req, res) => {
-        const { uid } = req.params
-        const attempt = await dao.getAttemptByUserId(uid)
+        const { cid, qid, uid } = req.params
+        const attempt = await dao.getAttemptByUserId(cid, qid, uid)
         if (!attempt) return res.sendStatus(404)
         return res.json(attempt)
     })
