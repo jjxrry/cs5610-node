@@ -1,11 +1,32 @@
 import * as dao from "./dao.js"
 
 export const AttemptRoutes = (app) => {
+    // app.get("/api/courses/:cid/quizzes/:qid/attempts/:uid", async (req, res) => {
+    //     const { cid, qid, uid } = req.params
+    //     if (qid === "new") return res.send(400).json({ message: "new quiz no attempts" })
+    //     const attempt = await dao.getAttemptByUserId(cid, qid, uid)
+    //     if (!attempt) return res.sendStatus(404)
+    //     return res.json(attempt)
+    // })
     app.get("/api/courses/:cid/quizzes/:qid/attempts/:uid", async (req, res) => {
-        const { cid, qid, uid } = req.params
-        const attempt = await dao.getAttemptByUserId(cid, qid, uid)
-        if (!attempt) return res.sendStatus(404)
-        return res.json(attempt)
+        const { cid, qid, uid } = req.params;
+
+        if (qid === "new") {
+            return res.status(400).json({ message: "new quiz no attempts" });
+        }
+
+        try {
+            const attempt = await dao.getAttemptByUserId(cid, qid, uid);
+
+            if (!attempt) {
+                return res.sendStatus(404);
+            }
+
+            return res.json(attempt);
+        } catch (error) {
+            console.error("Error fetching attempt:", error);
+            return res.status(500).json({ message: "Server error" });
+        }
     })
 
     app.post("/api/courses/:cid/quizzes/:qid/attempts", async (req, res) => {
