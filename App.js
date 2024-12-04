@@ -47,6 +47,9 @@ console.log("Session Options:", {
     secret: sessionOptions.secret ? "[SECRET]" : undefined
 })
 
+// maybe
+app.set('trust proxy', 1)
+
 app.use(express.json())
 app.use(
     session(sessionOptions)
