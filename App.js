@@ -50,10 +50,12 @@ console.log("Session Options:", {
 // didn't work
 // app.set('trust proxy', 1)
 
-app.use(express.json())
+// need to move this under session
+// app.use(express.json())
 app.use(
     session(sessionOptions)
 )
+app.use(express.json())
 UserRoutes(app)
 CourseRoutes(app)
 AssignmentRoutes(app)
