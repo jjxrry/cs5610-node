@@ -107,8 +107,8 @@ export default function UserRoutes(app) {
         const currentUser = await dao.findUserByCredentials(username, password)
         if (currentUser) {
             req.session["currentUser"] = currentUser
-            await new Promise((resolve) => req.session.save(resolve));
-            // console.log("session created: ", req.session)
+            // await new Promise((resolve) => req.session.save(resolve));
+            console.log("session created: ", req.session)
             res.json(currentUser)
         } else {
             res.status(401).json({ message: "Unable to login, try again later, whoop" })
